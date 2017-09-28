@@ -1,0 +1,10 @@
+﻿Logic behind the code:
+---------------------
+
+- alkönyvtárak neveiből kinyeri a változó neveket
+- a "dark" kezdetű könyvtárakat nem veszi figyelembe
+- konvertálja a változónevet pl.: V_Boo = vboo
+- a könyvtárnévből meghatározza az észlelési dátumot pl.: 20170115
+- meghatározza a targetben lévő fájlnevet: vboo20170115p
+- végig iterál a könyvtárban található fájlokon és átmásolja a target-ba
+- végig iterál az alkönyvtárakon
