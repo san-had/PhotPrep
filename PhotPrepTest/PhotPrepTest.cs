@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhotPrepForm;
+using System.Threading.Tasks;
 
 namespace PhotPrepTest
 {
@@ -23,16 +24,16 @@ namespace PhotPrepTest
         }
 
         [TestMethod]
-        public void ScriptTest()
+        public async Task ScriptTest()
         {
             //arrange
             string sourceDir = @"c:\pictures\2017\01\2017_01_15\";
             string targetDir = @"c:\Photometry\temp\";
-            int expectedListCount = 2;
+            int expectedListCount = 4;
             PhotPrep prep = new PhotPrep();
 
             // act
-            var fileList = prep.CopyAllFiles(sourceDir, targetDir);
+            var fileList = await prep.CopyAllFiles(sourceDir, targetDir);
             int actualListCount = fileList.Count;
 
             //assert
@@ -45,7 +46,7 @@ namespace PhotPrepTest
             //arrange
             string targetName = "vboo20170115p";
             int imgNumber = 4;
-            string expectedScriptLine = "run preproc vboo20170115p 4 vboo20170115ps 2";
+            string expectedScriptLine = "run preproc vboo20170115p 4 vboo20170115s 2";
             PhotPrep prep = new PhotPrep();
 
             //act

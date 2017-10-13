@@ -40,11 +40,11 @@ namespace PhotPrepForm
             }
         }
 
-        private void btnCopy_Click(object sender, EventArgs e)
+        private async void btnCopy_Click(object sender, EventArgs e)
         {
             PhotPrep prep = new PhotPrep();
             txtScript.Text = "Copying files please wait patiently!";
-            var scriptLines = prep.CopyAllFiles(txtSource.Text, txtTarget.Text);
+            var scriptLines = await prep.CopyAllFiles(txtSource.Text, txtTarget.Text);
             txtScript.Text = string.Empty;
             foreach (var line in scriptLines)
             {

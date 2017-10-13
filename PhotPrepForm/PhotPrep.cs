@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace PhotPrepForm
+﻿namespace PhotPrepForm
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public sealed class PhotPrep
     {
         public PhotPrep()
         { }
 
-        public List<string> CopyAllFiles(string sourceDir, string targetDir)
+        public async Task<List<string>> CopyAllFiles(string sourceDir, string targetDir)
         {
             var scriptList = new List<string>();
 
@@ -24,21 +25,27 @@ namespace PhotPrepForm
                 var files = Directory.EnumerateFiles(dir);
                 var index = 0;
                 bool isFileExist = false;
-                foreach (var file in files)
+                foreach (var filename in files)
                 {
-                    
-                    index++;
-                    var fileOriginalName = file;
-                    var fileTargetName = targetDir + targetName + index + ".cr2";
-                    isFileExist = File.Exists(fileTargetName);
-                    if (!isFileExist)
+                    FileStream sourceStream;
+                    using (sourceStream = File.Open(filename,FileMode.Open))
                     {
-                        File.Copy(fileOriginalName, fileTargetName); 
-                    }
-                    else
-                    {
-                        break;                                               
-                    }                   
+                        index++;
+                        var fileOriginalName = filename;
+                        var fileTargetName = targetDir + targetName + index + ".cr2";
+                        isFileExist = File.Exists(fileTargetName);
+                        if (!isFileExist)
+                        {
+                            using (FileStream destinationStream = File.Create(fileTargetName))
+                            {
+                                await sourceStream.CopyToAsync(destinationStream);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }           
                 }
                 if (!isFileExist)
                 {
@@ -71,6 +78,5 @@ namespace PhotPrepForm
             string scriptLine = "run preproc " + targetName + " " + imgNumber + " " + targetName2 + " " + (imgNumber / 2).ToString();
             return scriptLine;
         }
-
     }
 }
