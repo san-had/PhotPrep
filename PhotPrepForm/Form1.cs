@@ -6,9 +6,13 @@ namespace PhotPrepForm
 {
     public partial class Form1 : Form
     {
+        private readonly string BLUE_CHANNEL_STARS;
+
         public Form1()
         {
             InitializeComponent();
+
+            BLUE_CHANNEL_STARS = ConfigurationManager.AppSettings["BlueChannelStars"].ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -31,7 +35,7 @@ namespace PhotPrepForm
         }
 
         private void btnSetTarget_Click(object sender, EventArgs e)
-        {            
+        {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = txtTarget.Text;
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -44,7 +48,7 @@ namespace PhotPrepForm
         {
             PhotPrep prep = new PhotPrep();
             txtScript.Text = "Copying files please wait patiently!";
-            var scriptLines = await prep.CopyAllFiles(txtSource.Text, txtTarget.Text);
+            var scriptLines = await prep.CopyAllFiles(txtSource.Text, txtTarget.Text, BLUE_CHANNEL_STARS);
             txtScript.Text = string.Empty;
             foreach (var line in scriptLines)
             {

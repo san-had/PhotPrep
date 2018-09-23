@@ -59,6 +59,27 @@
       <Name>PhotPrepForm</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\photometry\temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\pictures\2017\01\2017_01_15\UU_Aur\IMG_6525.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\UU_Aur\IMG_6526.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\UU_Aur\IMG_6527.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\UU_Aur\IMG_6528.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\VV_Cep\IMG_6435.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\VV_Cep\IMG_6436.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\VV_Cep\IMG_6437.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\VV_Cep\IMG_6438.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\V_Boo\IMG_6275.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\V_Boo\IMG_6276.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\V_Boo\IMG_6277.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\V_Boo\IMG_6278.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\W_Cyg\IMG_6415.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\W_Cyg\IMG_6416.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\W_Cyg\IMG_6417.CR2" />
+    <Content Include="Resources\pictures\2017\01\2017_01_15\W_Cyg\IMG_6418.CR2" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

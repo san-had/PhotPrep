@@ -8,9 +8,10 @@
     public sealed class PhotPrep
     {
         public PhotPrep()
-        { }
+        {
+        }
 
-        public async Task<List<string>> CopyAllFiles(string sourceDir, string targetDir)
+        public async Task<List<string>> CopyAllFiles(string sourceDir, string targetDir, string blueChannelStarsConfiguration)
         {
             var scriptList = new List<string>();
 
@@ -28,7 +29,7 @@
                 foreach (var filename in files)
                 {
                     FileStream sourceStream;
-                    using (sourceStream = File.Open(filename,FileMode.Open))
+                    using (sourceStream = File.Open(filename, FileMode.Open))
                     {
                         index++;
                         var fileOriginalName = filename;
@@ -45,16 +46,17 @@
                         {
                             break;
                         }
-                    }           
+                    }
                 }
                 if (!isFileExist)
                 {
-                    scriptList.Add(GenerateScriptLine(targetName, index));
+                    var blueChannelStars = blueChannelStarsConfiguration.Split(';');
+                    scriptList.Add(GenerateScriptLine(targetName, index, blueChannelStars));
                 }
                 else
                 {
                     scriptList.Add("Files (" + targetName + " are already copied!");
-                }                
+                }
             }
             return scriptList;
         }
@@ -65,18 +67,40 @@
 
             var directory = new DirectoryInfo(sourceDir);
 
-            var date = directory.Name.Replace("_",string.Empty);
+            var date = directory.Name.Replace("_", string.Empty);
 
             postfix = date + "p";
 
             return postfix;
         }
 
-        public string GenerateScriptLine(string targetName, int imgNumber)
+        public string GenerateScriptLine(string targetName, int imgNumber, string[] blueChannelStars)
         {
-            var targetName2 = targetName.Remove(targetName.Length - 1) + "s";
-            string scriptLine = "run preproc " + targetName + " " + imgNumber + " " + targetName2 + " " + (imgNumber / 2).ToString();
+            var rootTargetName = targetName.Remove(targetName.Length - 1);
+
+            var targetNameReSized = $"{rootTargetName}s";
+
+            var targetNameGreen = $"{rootTargetName}g";
+
+            bool isBlueChannelStar = IsBlueChannel(targetName, blueChannelStars);
+
+            var tagetNameBlue = isBlueChannelStar ? $"{rootTargetName}b" : "blue";
+
+            string scriptLine = $"run preproc {targetName} {imgNumber} {targetNameReSized} {targetNameGreen} {tagetNameBlue}";
+
             return scriptLine;
+        }
+
+        public bool IsBlueChannel(string targetName, string[] blueChannelStars)
+        {
+            if (blueChannelStars == null || blueChannelStars.Length == 0)
+            {
+                return false;
+            }
+
+            var isBlue = blueChannelStars.Any(x => targetName.StartsWith(x));
+
+            return isBlue;
         }
     }
 }
