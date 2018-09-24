@@ -55,6 +55,9 @@ namespace PhotPrepForm
                 txtScript.Text += line + Environment.NewLine;
             }
             txtScript.Text += "prompt Kalibrálás_kész_szedd_szét_3_színre!" + Environment.NewLine;
+
+            Clipboard.Clear();
+            Clipboard.SetText(txtScript.Text);
         }
     }
 }
